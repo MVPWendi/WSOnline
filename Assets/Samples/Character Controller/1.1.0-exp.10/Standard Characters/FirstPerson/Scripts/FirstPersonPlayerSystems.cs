@@ -28,6 +28,7 @@ namespace test
         {
             foreach (var (playerInputs, player) in SystemAPI.Query<RefRW<FirstPersonPlayerInputs>, FirstPersonPlayer>().WithAll<GhostOwnerIsLocal>())
             {
+                Debug.Log("Input: " + player.ControlledCharacter.Index);
                 playerInputs.ValueRW.MoveInput = new float2
                 {
                     x = (Input.GetKey(KeyCode.D) ? 1f : 0f) + (Input.GetKey(KeyCode.A) ? -1f : 0f),

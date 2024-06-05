@@ -96,11 +96,13 @@ namespace Assets
 
             if (SystemAPI.HasSingleton<NetworkId>())
             {
+                Debug.Log("T1");
                 EntityCommandBuffer ecb = SystemAPI.GetSingletonRW<BeginSimulationEntityCommandBufferSystem.Singleton>().ValueRW.CreateCommandBuffer(state.WorldUnmanaged);
 
                 // Initialize local-owned characters
                 foreach (var (character, owningPlayer, ghostOwner, entity) in SystemAPI.Query<FirstPersonCharacterComponent, OwningPlayer, GhostOwner>().WithAll<GhostOwnerIsLocal>().WithNone<CharacterInitialized>().WithEntityAccess())
                 {
+                    Debug.Log("T3");
                     // Make camera follow character's view
                     ecb.AddComponent(character.ViewEntity, new MainEntityCamera { });
 
@@ -108,7 +110,7 @@ namespace Assets
                     BufferLookup<Child> childBufferLookup = SystemAPI.GetBufferLookup<Child>();
                     MiscUtilities.SetShadowModeInHierarchy(state.EntityManager, ecb, entity, ref childBufferLookup, UnityEngine.Rendering.ShadowCastingMode.ShadowsOnly);
 
-                    Debug.Log("T1");
+                    
 
                     // Mark initialized
                     ecb.AddComponent<CharacterInitialized>(entity);
@@ -123,5 +125,12 @@ namespace Assets
                 }
             }
         }
+    }
+
+    public struct CharacterSpawnRequest : IComponentData
+    {
+        public Entity ForConnection;
+        public Entity PlayerEntity;
+        public float Delay;
     }
 }
