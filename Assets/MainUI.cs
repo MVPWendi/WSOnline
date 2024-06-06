@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using Unity.Entities;
 using Unity.NetCode;
 using Unity.Networking.Transport;
@@ -13,11 +14,13 @@ public class MainUI : MonoBehaviour
 {
     [SerializeField] private Button HostButton;
     [SerializeField] private Button ConnectButton;
+    [SerializeField] private TMP_InputField Adress;
     // Start is called before the first frame update
     void Start()
     {
         HostButton.onClick.AddListener(OnHost);
         ConnectButton.onClick.AddListener(OnConnect);
+        Adress.text = "127.0.0.1";
     }
 
     private void OnConnect()
@@ -50,7 +53,7 @@ public class MainUI : MonoBehaviour
     private void StartClient()
     {
         var clientWorld = ClientServerBootstrap.CreateClientWorld("Client world");
-        var conenctionEndpoint = NetworkEndpoint.Parse("127.0.0.1", 6666);
+        var conenctionEndpoint = NetworkEndpoint.Parse(Adress.text, 6666);
         {
             using var networkDriverQuery = clientWorld.EntityManager.CreateEntityQuery(ComponentType.ReadWrite<NetworkStreamDriver>());
             networkDriverQuery.GetSingletonRW<NetworkStreamDriver>().ValueRW.Connect(clientWorld.EntityManager, conenctionEndpoint);
