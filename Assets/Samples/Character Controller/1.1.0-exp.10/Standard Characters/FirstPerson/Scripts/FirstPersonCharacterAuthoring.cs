@@ -6,6 +6,7 @@ using Unity.CharacterController;
 using Unity.Physics;
 using System.Collections.Generic;
 using UnityEngine.Serialization;
+using Assets;
 
 [DisallowMultipleComponent]
 public class FirstPersonCharacterAuthoring : MonoBehaviour
@@ -52,6 +53,11 @@ public class FirstPersonCharacterAuthoring : MonoBehaviour
                 ViewDestination = GetEntity(authoring.ViewDestination, TransformUsageFlags.Dynamic),
                 ViewPitchDegrees = 0f,
                 ViewLocalRotation = quaternion.identity,
+            });
+            AddComponent(entity, new InteractComponent
+            {
+                Distance = 10f,
+
             });
             AddComponent(entity, new FirstPersonCharacterControl());
             AddComponent(entity, new OwningPlayer());

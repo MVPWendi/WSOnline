@@ -7,6 +7,7 @@ using Unity.Transforms;
 using UnityEngine;
 using Unity.CharacterController;
 using Unity.NetCode;
+using Assets;
 
 namespace test
 {
@@ -40,8 +41,7 @@ namespace test
 
                 playerInputs.ValueRW.JumpPressed = default;
                 if (Input.GetKeyDown(KeyCode.Space))
-                {
-                    
+                {                
                     playerInputs.ValueRW.JumpPressed.Set();
                 }
                 playerInputs.ValueRW.InteractPressed = default;
