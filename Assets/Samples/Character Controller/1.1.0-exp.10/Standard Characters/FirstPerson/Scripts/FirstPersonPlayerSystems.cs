@@ -123,8 +123,8 @@ namespace test
                     characterControl.MoveVector = (playerInputs.MoveInput.y * characterForward) + (playerInputs.MoveInput.x * characterRight);
                     characterControl.MoveVector = MathUtilities.ClampToMaxLength(characterControl.MoveVector, 1f);
 
-                    // Jump
                     characterControl.Jump = playerInputs.JumpPressed.IsSet;
+
 
                     SystemAPI.SetComponent(player.ControlledCharacter, characterControl);
                 }
